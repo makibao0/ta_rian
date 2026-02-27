@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { useProductStore } from "../store/product.store";
-import { ProductSkeleton } from "./component/product/ProductSkeleton";
-import { Input } from "../components/ui/Input";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import { Input } from "../components/ui/Input";
+import { useProductStore } from "../store/product.store";
+import ProductCard from "./component/product/ProductCard";
+import { ProductSkeleton } from "./component/product/ProductSkeleton";
 
 export default function Product() {
-  const navigate = useNavigate();
   const {
     products,
     total,
@@ -56,21 +55,7 @@ export default function Product() {
             .map((_, i) => <ProductSkeleton key={i} />)
         ) : products.length > 0 ? (
           products.map((product) => (
-            <div
-              key={product.id}
-              onClick={() => navigate(`/product/${product.id}`)}
-              className="bg-white p-4 rounded-xl shadow-sm border border-gray-100"
-            >
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                className="w-full h-40 object-cover rounded-lg mb-3"
-              />
-              <h2 className="font-semibold text-gray-700 truncate">
-                {product.title}
-              </h2>
-              <p className="text-blue-600 font-bold mt-1">${product.price}</p>
-            </div>
+            <ProductCard key={product.id} product={product} />
           ))
         ) : (
           <div className="col-span-full text-center py-20 text-gray-500">
