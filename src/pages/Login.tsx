@@ -97,7 +97,7 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="flex-1 bg-gradient-to-r from-blue-700 to-blue-500 flex justify-center items-center p-12 order-1 md:order-2 min-h-[300px] md:min-h-screen">
+      <div className="flex-1 bg-linear-to-r from-blue-700 to-blue-500 flex justify-center items-center p-12 order-1 md:order-2 min-h-75 md:min-h-screen">
         <img
           src="/images/dashboard.png"
           alt="Login illustration"

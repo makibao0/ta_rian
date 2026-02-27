@@ -16,6 +16,7 @@ export default function ProductDetail() {
   const { showToast } = useToastStore();
   const [loading, setLoading] = useState(true);
   const [imagePreview, setImagePreview] = useState("");
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -37,27 +38,28 @@ export default function ProductDetail() {
       }
     },
   });
-
+  const { setValues } = formik;
   useEffect(() => {
     if (id) {
       productController
         .getProductById(Number(id))
         .then((data) => {
-          if (data?.images && data.images.length > 0) {
+          if (data?.images?.[0]) {
             setImagePreview(data.images[0]);
           }
-          formik.setValues({
-            title: data.title,
-            price: data.price,
-            stock: data.stock,
+
+          setValues({
+            title: data.title || "",
+            price: data.price || 0,
+            stock: data.stock || 0,
             description: data.description || "",
-            category: data.category,
+            category: data.category || "",
           });
         })
         .catch(() => showToast("Failed to fetch product", "error"))
         .finally(() => setLoading(false));
     }
-  }, [id]);
+  }, [id, setValues, showToast]);
 
   const handleDelete = async () => {
     const success = await deleteProduct(Number(id));
