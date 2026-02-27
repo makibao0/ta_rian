@@ -60,7 +60,8 @@ export default function ProductDetail() {
   }, [id]);
 
   const handleDelete = async () => {
-    deleteProduct(Number(id));
+    const success = await deleteProduct(Number(id));
+    if (success) showToast("Product deleted successfully!", "success");
     navigate("/product");
   };
 

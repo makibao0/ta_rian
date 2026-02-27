@@ -27,6 +27,7 @@ export const productController = {
     },
 
     deleteProduct: async (id: number): Promise<void> => {
-        await api.delete(`/products/${id}`);
+        const { data } = await api.delete(`/products/${id}`);
+        return data;
     }
 };
