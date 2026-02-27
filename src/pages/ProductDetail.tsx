@@ -43,7 +43,9 @@ export default function ProductDetail() {
       productController
         .getProductById(Number(id))
         .then((data) => {
-          setImagePreview(data.images[0]);
+          if (data?.images && data.images.length > 0) {
+            setImagePreview(data.images[0]);
+          }
           formik.setValues({
             title: data.title,
             price: data.price,
