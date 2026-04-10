@@ -1,6 +1,7 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faX, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import { appRoutes } from "../../routes/Routes";
 
 interface Props {
@@ -14,6 +15,7 @@ export default function Sidebar({
   mobileOpen,
   setMobileOpen,
 }: Props) {
+  const { user, logout } = useAuth();
   return (
     <>
       {mobileOpen && (
@@ -63,6 +65,28 @@ export default function Sidebar({
               );
             })}
         </nav>
+
+        {/* Logout button - mobile only */}
+        <div className="lg:hidden absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+          <div className="flex items-center gap-3 px-2 mb-3">
+            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm shrink-0">
+              {user?.firstName?.[0]?.toUpperCase()}
+            </div>
+            {!collapsed && (
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-gray-800 truncate">{user?.firstName} {user?.lastName}</p>
+                <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+              </div>
+            )}
+          </div>
+          <button
+            onClick={() => { logout(); setMobileOpen(false); }}
+            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 transition font-medium text-sm"
+          >
+            <FontAwesomeIcon icon={faRightFromBracket} className="w-4 h-4" />
+            {!collapsed && <span>Logout</span>}
+          </button>
+        </div>
       </aside>
     </>
   );

@@ -33,10 +33,10 @@ export default function Navbar({
       </div>
 
       <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-600">{user?.firstName}</span>
+        <span className="hidden lg:block text-sm text-gray-600">{user?.firstName}</span>
         <button
           onClick={logout}
-          className="bg-red-500 text-white px-3 py-1 rounded"
+          className="hidden lg:block bg-red-500 text-white px-3 py-1 rounded"
         >
           Logout
         </button>
